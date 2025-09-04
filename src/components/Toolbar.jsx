@@ -1,6 +1,7 @@
 import React from 'react'
 import { Pencil, Eraser, Share2, Palette, Trash2 } from 'lucide-react'
 import { ACTIONS, useCollaboration } from '../context/CollaborationContext.jsx'
+import UserProfile from './UserProfile.jsx'
 
 export default function Toolbar() {
   const { state, dispatch } = useCollaboration()
@@ -94,6 +95,8 @@ export default function Toolbar() {
             <Trash2 className="w-4 h-4" />
             <span className="text-sm font-medium">Clear</span>
           </button>
+
+          <UserProfile />
         </div>
       </div>
     </div>
