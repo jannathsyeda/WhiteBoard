@@ -73,11 +73,18 @@ function CollaborationShell() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex flex-col">
       <Toolbar />
-      <div className="flex-1 relative flex items-center justify-center p-6">
-        <DrawingCanvas />
-        <div className="absolute top-6 right-6">
+      <div className="flex-1 flex items-center justify-center p-6 gap-6">
+        <div className="hidden lg:block flex-shrink-0">
           <UsersList />
         </div>
+        <div className="flex-1 flex justify-center">
+          <DrawingCanvas />
+        </div>
+      </div>
+      
+      {/* Mobile UsersList - positioned at bottom */}
+      <div className="lg:hidden fixed bottom-20 left-4 right-4 z-20">
+        <UsersList />
       </div>
       <StatusBar />
     </div>
