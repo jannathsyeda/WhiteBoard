@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react'
-import { ACTIONS, initialState, collaborationReducer } from '../reducers/collaborationReducer.js'
+import { ACTIONS, initialState, collaborationReducer, COLLABORATION_MODES } from '../reducers/collaborationReducer.js'
 
 const CollaborationContext = createContext()
 
@@ -20,8 +20,8 @@ export function useCollaboration() {
   return context
 }
 
-// Re-export ACTIONS for convenience
-export { ACTIONS }
+// Re-export ACTIONS and COLLABORATION_MODES for convenience
+export { ACTIONS, COLLABORATION_MODES }
 
 
 

@@ -40,6 +40,16 @@ export default function DrawingCanvas() {
 
   const startDrawing = (e) => {
     e.preventDefault()
+    
+    // Check if drawing is allowed
+    if (state.isLayerLocked) {
+      console.log('Drawing blocked: Layer is locked')
+      return
+    }
+    
+    // View-only mode only blocks other users, not the owner (user1)
+    // The owner can always draw unless layer is locked
+    
     setIsDrawing(true)
     const pos = getEventPos(e)
     const newStroke = {
@@ -57,6 +67,13 @@ export default function DrawingCanvas() {
 
   const draw = (e) => {
     if (!isDrawing || !currentStroke) return
+    
+    // Check if drawing is still allowed
+    if (state.isLayerLocked) {
+      stopDrawing()
+      return
+    }
+    
     e.preventDefault()
     const pos = getEventPos(e)
     const updatedStroke = { ...currentStroke, points: [...currentStroke.points, pos] }
@@ -77,13 +94,21 @@ export default function DrawingCanvas() {
     dispatch({ type: ACTIONS.SET_IS_DRAWING, payload: false })
   }
 
+  // Only the layer lock blocks the owner from drawing
+  // View-only mode only affects other users
+  const isDrawingBlocked = state.isLayerLocked
+  
   return (
     <div className="relative">
       <canvas
         ref={canvasRef}
         width={900}
         height={600}
-        className="bg-white rounded-2xl shadow-2xl cursor-crosshair hover:shadow-3xl transition-all duration-300 border border-gray-200"
+        className={`bg-white rounded-2xl shadow-2xl transition-all duration-300 border border-gray-200 ${
+          isDrawingBlocked 
+            ? 'cursor-not-allowed opacity-75' 
+            : 'cursor-crosshair hover:shadow-3xl'
+        }`}
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
@@ -96,6 +121,18 @@ export default function DrawingCanvas() {
       {state.isDrawing && (
         <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium animate-pulse">
           Drawing...
+        </div>
+      )}
+
+      {isDrawingBlocked && (
+        <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+          🔒 Layer Locked
+        </div>
+      )}
+
+      {state.collaborationEnabled && state.collaborationMode === 'view-only' && (
+        <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+          👁️ View Only (Others)
         </div>
       )}
 

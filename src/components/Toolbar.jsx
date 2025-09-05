@@ -1,10 +1,12 @@
-import React from 'react'
-import { Pencil, Eraser, Share2, Palette, Trash2 } from 'lucide-react'
+import React, { useState } from 'react'
+import { Pencil, Eraser, Share2, Palette, Trash2, Users, Lock, Unlock } from 'lucide-react'
 import { ACTIONS, useCollaboration } from '../context/CollaborationContext.jsx'
 import UserProfile from './UserProfile.jsx'
+import CollaborationSettings from './CollaborationSettings.jsx'
 
 export default function Toolbar() {
   const { state, dispatch } = useCollaboration()
+  const [showCollaborationSettings, setShowCollaborationSettings] = useState(false)
 
   const tools = [
     { id: 'draw', icon: Pencil, label: 'Draw' },
@@ -17,7 +19,7 @@ export default function Toolbar() {
   ]
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm shadow-xl border-b border-white/20 p-4">
+    <div className="bg-white/95 backdrop-blur-sm shadow-xl border-b border-white/20 p-4 relative z-20">
       <div className="flex items-center justify-between flex-wrap gap-4 max-w-7xl mx-auto">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
@@ -96,9 +98,41 @@ export default function Toolbar() {
             <span className="text-sm font-medium">Clear</span>
           </button>
 
+          <button
+            onClick={() => dispatch({ type: ACTIONS.TOGGLE_LAYER_LOCK })}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200 hover:scale-105 ${
+              state.isLayerLocked
+                ? 'bg-red-50 hover:bg-red-100 text-red-600'
+                : 'bg-gray-50 hover:bg-gray-100 text-gray-600'
+            }`}
+          >
+            {state.isLayerLocked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+            <span className="text-sm font-medium">
+              {state.isLayerLocked ? 'Unlock' : 'Lock'}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setShowCollaborationSettings(true)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200 hover:scale-105 ${
+              state.collaborationEnabled
+                ? 'bg-green-50 hover:bg-green-100 text-green-600'
+                : 'bg-gray-50 hover:bg-gray-100 text-gray-600'
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            <span className="text-sm font-medium">Collaborate</span>
+          </button>
+
           <UserProfile />
         </div>
       </div>
+
+      {/* Collaboration Settings Modal */}
+      <CollaborationSettings 
+        isOpen={showCollaborationSettings} 
+        onClose={() => setShowCollaborationSettings(false)} 
+      />
     </div>
   )
 }

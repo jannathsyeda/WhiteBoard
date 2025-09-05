@@ -1,15 +1,29 @@
 import React, { useState } from 'react'
-import { User, LogOut, Settings, ChevronDown } from 'lucide-react'
+import { User, LogOut, Settings as SettingsIcon, ChevronDown } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
+import Settings from './Settings.jsx'
+import Profile from './Profile.jsx'
 
 export default function UserProfile() {
   const { user, logout } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [showProfile, setShowProfile] = useState(false)
 
   if (!user) return null
 
   const handleLogout = () => {
     logout()
+    setIsOpen(false)
+  }
+
+  const handleSettingsClick = () => {
+    setShowSettings(true)
+    setIsOpen(false)
+  }
+
+  const handleProfileClick = () => {
+    setShowProfile(true)
     setIsOpen(false)
   }
 
@@ -42,10 +56,10 @@ export default function UserProfile() {
       {isOpen && (
         <>
           <div 
-            className="fixed inset-0 z-10" 
+            className="fixed inset-0 z-30" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full right-0 mt-2 w-64 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-white/20 z-20 overflow-hidden">
+          <div className="absolute top-full right-0 mt-2 w-64 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-white/20 z-40 overflow-hidden">
             <div className="p-4 border-b border-gray-200">
               <div className="flex items-center gap-3">
                 <div
@@ -62,13 +76,19 @@ export default function UserProfile() {
             </div>
 
             <div className="p-2">
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+              <button 
+                onClick={handleProfileClick}
+                className="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
                 <User className="w-4 h-4" />
                 <span className="text-sm">Profile</span>
               </button>
               
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                <Settings className="w-4 h-4" />
+              <button 
+                onClick={handleSettingsClick}
+                className="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <SettingsIcon className="w-4 h-4" />
                 <span className="text-sm">Settings</span>
               </button>
               
@@ -91,6 +111,18 @@ export default function UserProfile() {
           </div>
         </>
       )}
+
+      {/* Settings Modal */}
+      <Settings 
+        isOpen={showSettings} 
+        onClose={() => setShowSettings(false)} 
+      />
+
+      {/* Profile Modal */}
+      <Profile 
+        isOpen={showProfile} 
+        onClose={() => setShowProfile(false)} 
+      />
     </div>
   )
 }

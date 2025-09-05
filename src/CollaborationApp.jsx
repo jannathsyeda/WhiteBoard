@@ -30,7 +30,8 @@ function CollaborationShell() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (Math.random() < 0.15) {
+      // Only allow simulated drawing if collaboration is enabled, layer is not locked, and not in view-only mode
+      if (Math.random() < 0.15 && state.collaborationEnabled && !state.isLayerLocked && state.collaborationMode !== 'view-only') {
         const activeUsers = state.users.filter(user => user.isActive && user.id !== 'user1')
         if (activeUsers.length > 0) {
           const randomUser = activeUsers[Math.floor(Math.random() * activeUsers.length)]
