@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { X, User, Mail, Palette, Edit3, Save, Camera } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
+import { ThemeContext } from '../context/ThemeContext.jsx'
 
 export default function Profile({ isOpen, onClose }) {
-  const { user, login } = useAuth()
+  const { user, updateUser } = useAuth()
   const [isEditing, setIsEditing] = useState(false)
   const [profileData, setProfileData] = useState({
     name: user?.name || '',
@@ -11,20 +12,19 @@ export default function Profile({ isOpen, onClose }) {
     color: user?.color || '#3b82f6'
   })
 
+  const {darkMode}=useContext(ThemeContext)
+
   const presetColors = [
     '#3b82f6', '#10b981', '#f59e0b', '#ef4444',
     '#8b5cf6', '#06b6d4', '#64748b', '#000000'
   ]
 
   const handleSave = () => {
-    const updatedUser = {
-      ...user,
+    updateUser({
       name: profileData.name.trim(),
       email: profileData.email.trim(),
-      color: profileData.color,
-      lastUpdated: new Date().toISOString()
-    }
-    login(updatedUser)
+      color: profileData.color
+    })
     setIsEditing(false)
     onClose()
   }
@@ -48,7 +48,7 @@ export default function Profile({ isOpen, onClose }) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className={` fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? "dark" : ""}`}>
       <div 
         className="fixed inset-0 bg-black/50 backdrop-blur-sm" 
         onClick={onClose}

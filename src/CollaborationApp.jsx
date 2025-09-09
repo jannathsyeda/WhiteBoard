@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react'
+import React, {  useEffect } from 'react'
 import Toolbar from './components/Toolbar.jsx'
 import DrawingCanvas from './components/DrawingCanvas.jsx'
 import UsersList from './components/UsersList.jsx'
 import StatusBar from './components/StatusBar.jsx'
 import Login from './components/Login.jsx'
 import { ACTIONS, CollaborationProvider, useCollaboration } from './context/CollaborationContext.jsx'
-import { AuthProvider, useAuth } from './context/AuthContext.jsx'
+import {  useAuth } from './context/AuthContext.jsx'
 
-function CollaborationShell() {
+export default function CollaborationShell() {
   const { state, dispatch } = useCollaboration()
   const { isAuthenticated, isLoading } = useAuth()
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
-        <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-8">
+        <div className=" bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-8">
           <div className="flex items-center gap-4">
             <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
             <span className="text-lg font-medium text-gray-700">Loading...</span>
@@ -91,14 +91,6 @@ function CollaborationShell() {
   )
 }
 
-export default function CollaborationApp() {
-  return (
-    <AuthProvider>
-      <CollaborationProvider>
-        <CollaborationShell />
-      </CollaborationProvider>
-    </AuthProvider>
-  )
-}
+
 
 

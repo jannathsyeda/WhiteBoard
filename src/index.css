@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #00D991;
+  --container-center: true;
+  --container-padding: 1.25rem;
+  --color-dark-bg: #171923;
+}
+
+/* Apply dark mode styles */
+.dark {
+  color-scheme: dark;
+  background-color: var(--color-dark-bg);
+  color: white;
+}
+
+/* Ensure dark mode works globally, including portals */
+html .dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: var(--color-dark-bg);
+  color: white;
+}
+
+/* Force dark mode for modals and portals */
+.dark .modal-content,
+.dark [role="dialog"],
+.dark .modal {
+  background-color: var(--color-dark-bg);
+  color: white;
+}
+
+/* Optional: Set default light mode */
+:root {
+  background-color: white;
+  color: black;
+}

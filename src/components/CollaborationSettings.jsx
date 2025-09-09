@@ -49,9 +49,9 @@ export default function CollaborationSettings({ isOpen, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 ">
       <div 
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm" 
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm " 
         onClick={onClose}
       />
       <div className="relative bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -265,3 +265,4 @@ export default function CollaborationSettings({ isOpen, onClose }) {
     </div>
   )
 }
+

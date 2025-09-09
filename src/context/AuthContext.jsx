@@ -34,10 +34,23 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('collabUser')
   }
 
+  const updateUser = (updates) => {
+    if (!user) return
+    
+    const updatedUser = {
+      ...user,
+      ...updates,
+      lastUpdated: new Date().toISOString()
+    }
+    setUser(updatedUser)
+    localStorage.setItem('collabUser', JSON.stringify(updatedUser))
+  }
+
   const value = {
     user,
     login,
     logout,
+    updateUser,
     isLoading,
     isAuthenticated: !!user
   }
