@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react'
+import React, {  useContext, useEffect } from 'react'
 import Toolbar from './components/Toolbar.jsx'
 import DrawingCanvas from './components/DrawingCanvas.jsx'
 import UsersList from './components/UsersList.jsx'
@@ -6,10 +6,14 @@ import StatusBar from './components/StatusBar.jsx'
 import Login from './components/Login.jsx'
 import { ACTIONS, CollaborationProvider, useCollaboration } from './context/CollaborationContext.jsx'
 import {  useAuth } from './context/AuthContext.jsx'
+import { ThemeContext } from './context/ThemeContext.jsx'
 
 export default function CollaborationShell() {
   const { state, dispatch } = useCollaboration()
   const { isAuthenticated, isLoading } = useAuth()
+
+  const {darkMode, setDarkMode}=useContext(ThemeContext)
+
 
   if (isLoading) {
     return (
@@ -70,11 +74,16 @@ export default function CollaborationShell() {
     return points
   }
 
+
   return (
+
+
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex flex-col">
+  
       <Toolbar />
-      <div className="flex-1 flex items-center justify-center p-6 gap-6">
-        <div className="hidden lg:block flex-shrink-0">
+      
+      <div className="flex-1 flex items-center justify-center p-6 gap-6 ">
+        <div className="hidden lg:block flex-shrink-0 ">
           <UsersList />
         </div>
         <div className="flex-1 flex justify-center">

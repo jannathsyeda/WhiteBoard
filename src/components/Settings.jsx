@@ -1,7 +1,6 @@
-import React, { useState, useEffect, use, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { X, Palette, Volume2, VolumeX, Sun, Moon, Monitor, Save } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
-import { ThemeContext } from '../context/ThemeContext.jsx'
 
 export default function Settings({ isOpen, onClose }) {
   const { user, updateUser } = useAuth()
@@ -12,8 +11,6 @@ export default function Settings({ isOpen, onClose }) {
     notifications: user?.settings?.notifications ?? true,
     autoSave: user?.settings?.autoSave ?? true
   })
-
-  const {darkMode,setDarkMode}=useContext(ThemeContext)
 
   const presetColors = [
     '#3b82f6', '#10b981', '#f59e0b', '#ef4444',
@@ -167,15 +164,14 @@ export default function Settings({ isOpen, onClose }) {
           </div>
 
           {/* Theme Settings */}
-           <button
-              class="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block"
-              href="#"
-			  onClick={()=>
-          setDarkMode(
-          darkMode => !darkMode)}
-            >
-              <img src={""} width="24" height="24" alt="" />
-            </button>
+
+          {/* Add this inside your Settings component for testing */}
+<div className="p-4 bg-white dark:bg-black text-black dark:text-white border rounded">
+  <p>Theme test: This should change colors when you switch themes</p>
+  <p>Current theme: {settings.theme}</p>
+  <p>Document has 'dark' class: {document.documentElement.classList.contains('dark') ? 'Yes' : 'No'}</p>
+</div>
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
               <Monitor className="w-4 h-4 inline mr-2" />
