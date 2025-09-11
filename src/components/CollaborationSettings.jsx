@@ -49,44 +49,44 @@ export default function CollaborationSettings({ isOpen, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 ">
+<div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div 
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm " 
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm" 
         onClick={onClose}
       />
-      <div className="relative bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+      <div className="relative bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/30 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
               <Users className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-800">Collaboration Settings</h2>
-              <p className="text-sm text-gray-500">Manage who can access and edit your board</p>
+              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">Collaboration Settings</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Manage who can access and edit your board</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-gray-600" />
+            <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
           </button>
         </div>
 
         <div className="p-6 space-y-6">
           {/* Collaboration Toggle */}
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+          <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                state.collaborationEnabled ? 'bg-green-100' : 'bg-gray-100'
+                state.collaborationEnabled ? 'bg-green-100 dark:bg-green-900' : 'bg-gray-100 dark:bg-gray-700'
               }`}>
                 <Users className={`w-5 h-5 ${
-                  state.collaborationEnabled ? 'text-green-600' : 'text-gray-400'
+                  state.collaborationEnabled ? 'text-green-600 dark:text-green-400' : 'text-gray-400'
                 }`} />
               </div>
               <div>
-                <h3 className="font-medium text-gray-800">Enable Collaboration</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="font-medium text-gray-800 dark:text-gray-200">Enable Collaboration</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   {state.collaborationEnabled ? 'Others can join your board' : 'Only you can edit this board'}
                 </p>
               </div>
@@ -94,7 +94,7 @@ export default function CollaborationSettings({ isOpen, onClose }) {
             <button
               onClick={handleToggleCollaboration}
               className={`relative w-12 h-6 rounded-full transition-colors ${
-                state.collaborationEnabled ? 'bg-green-500' : 'bg-gray-300'
+                state.collaborationEnabled ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'
               }`}
             >
               <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${
@@ -107,7 +107,7 @@ export default function CollaborationSettings({ isOpen, onClose }) {
             <>
               {/* Collaboration Mode */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                   <Settings className="w-4 h-4 inline mr-2" />
                   Collaboration Mode
                 </label>
@@ -118,18 +118,18 @@ export default function CollaborationSettings({ isOpen, onClose }) {
                       onClick={() => handleModeChange(mode)}
                       className={`flex items-start gap-3 p-4 rounded-xl border transition-all duration-200 ${
                         state.collaborationMode === mode
-                          ? 'bg-blue-50 text-blue-700 border-blue-200'
-                          : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
+                          ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700'
+                          : 'bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-750'
                       }`}
                     >
                       <div className={`w-4 h-4 rounded-full border-2 mt-1 ${
                         state.collaborationMode === mode
                           ? 'bg-blue-500 border-blue-500'
-                          : 'border-gray-300'
+                          : 'border-gray-300 dark:border-gray-600'
                       }`} />
                       <div className="text-left">
                         <div className="font-medium">{config.label}</div>
-                        <div className="text-sm text-gray-500">{config.description}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">{config.description}</div>
                       </div>
                     </button>
                   ))}
@@ -138,7 +138,7 @@ export default function CollaborationSettings({ isOpen, onClose }) {
 
               {/* Share Link */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                   <Share2 className="w-4 h-4 inline mr-2" />
                   Share Link
                 </label>
@@ -147,7 +147,7 @@ export default function CollaborationSettings({ isOpen, onClose }) {
                     type="text"
                     value={`${window.location.origin}${window.location.pathname}?collab=true&mode=${state.collaborationMode}`}
                     readOnly
-                    className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-mono"
+                    className="flex-1 px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 rounded-xl text-sm font-mono"
                   />
                   <button
                     onClick={handleCopyLink}
@@ -161,7 +161,7 @@ export default function CollaborationSettings({ isOpen, onClose }) {
 
               {/* Invite Users */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                   <UserPlus className="w-4 h-4 inline mr-2" />
                   Invite Users
                 </label>
@@ -171,12 +171,12 @@ export default function CollaborationSettings({ isOpen, onClose }) {
                     value={inviteEmail}
                     onChange={(e) => setInviteEmail(e.target.value)}
                     placeholder="Enter email address"
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                   <button
                     onClick={handleInviteUser}
                     disabled={!inviteEmail.trim()}
-                    className="px-6 py-3 bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl transition-colors font-medium"
+                    className="px-6 py-3 bg-green-500 hover:bg-green-600 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-xl transition-colors font-medium"
                   >
                     Invite
                   </button>
@@ -185,23 +185,23 @@ export default function CollaborationSettings({ isOpen, onClose }) {
 
               {/* Collaborators List */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                   <Users className="w-4 h-4 inline mr-2" />
                   Collaborators ({state.collaborators.length})
                 </label>
                 <div className="space-y-2 max-h-48 overflow-y-auto">
                   {state.collaborators.map(collaborator => (
-                    <div key={collaborator.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                    <div key={collaborator.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
                       <div className="flex items-center gap-3">
                         <div
-                          className="w-8 h-8 rounded-full border-2 border-white shadow-lg flex items-center justify-center text-white font-medium text-sm"
+                          className="w-8 h-8 rounded-full border-2 border-white dark:border-gray-800 shadow-lg flex items-center justify-center text-white font-medium text-sm"
                           style={{ backgroundColor: collaborator.color }}
                         >
                           {collaborator.name.charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <div className="font-medium text-gray-800">{collaborator.name}</div>
-                          <div className="text-sm text-gray-500">
+                          <div className="font-medium text-gray-800 dark:text-gray-200">{collaborator.name}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
                             {collaborator.isOwner ? 'Owner' : collaborator.isActive ? 'Active' : 'Pending'}
                           </div>
                         </div>
@@ -209,7 +209,7 @@ export default function CollaborationSettings({ isOpen, onClose }) {
                       {!collaborator.isOwner && (
                         <button
                           onClick={() => handleRemoveCollaborator(collaborator.id)}
-                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -222,20 +222,20 @@ export default function CollaborationSettings({ isOpen, onClose }) {
           )}
 
           {/* Layer Lock */}
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+          <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                state.isLayerLocked ? 'bg-red-100' : 'bg-gray-100'
+                state.isLayerLocked ? 'bg-red-100 dark:bg-red-900' : 'bg-gray-100 dark:bg-gray-700'
               }`}>
                 {state.isLayerLocked ? (
-                  <Lock className="w-5 h-5 text-red-600" />
+                  <Lock className="w-5 h-5 text-red-600 dark:text-red-400" />
                 ) : (
                   <Unlock className="w-5 h-5 text-gray-400" />
                 )}
               </div>
               <div>
-                <h3 className="font-medium text-gray-800">Lock Layer</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="font-medium text-gray-800 dark:text-gray-200">Lock Layer</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   {state.isLayerLocked ? 'Layer is locked - no editing allowed' : 'Layer is unlocked - editing allowed'}
                 </p>
               </div>
@@ -243,7 +243,7 @@ export default function CollaborationSettings({ isOpen, onClose }) {
             <button
               onClick={handleToggleLayerLock}
               className={`relative w-12 h-6 rounded-full transition-colors ${
-                state.isLayerLocked ? 'bg-red-500' : 'bg-gray-300'
+                state.isLayerLocked ? 'bg-red-500' : 'bg-gray-300 dark:bg-gray-600'
               }`}
             >
               <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${
@@ -253,10 +253,10 @@ export default function CollaborationSettings({ isOpen, onClose }) {
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
+        <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
           <button
             onClick={onClose}
-            className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-colors font-medium"
+            className="px-6 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl transition-colors font-medium"
           >
             Close
           </button>
